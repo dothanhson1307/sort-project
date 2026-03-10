@@ -2,6 +2,8 @@
 #include <fstream>
 #include <cmath>
 #include <time.h>
+#include <string>
+#include <cstdlib>
 #include "sorts.h"
 using namespace std;
 
@@ -81,13 +83,52 @@ void GenerateData(int a[], int n, int dataType)
 	}
 }
 
-int main(int argc,char* argv[]){
-	int arr[30];
-	GenerateNearlySortedData(arr,30);
-	unsigned long long comp;
-	heapSort(arr,30,comp);
-	cout<<comp<<'\n';
-	for(int i:arr){
-		cout<<i<<'\n';
-	}
+bool isNumber(const string& str) {
+    for (char const &c : str) {
+        if (isdigit(c) == 0) return false;
+    }
+    return true;
+}
+
+int main(int argc, char* argv[]) {
+    if (argc < 5) {
+        cout << "không hợp lệ";
+        return 1;
+    }
+    string mode = argv[1];
+    if (mode == "-a") {
+		cout << "ALGORITHM MODE" <<'\n';
+        string algorithm = argv[2];
+        if (argc == 5) {
+            string arg3 = argv[3]; 
+            string output_param = argv[4];
+            if (!isNumber(arg3)) {
+                string input_file = arg3;
+            } else {
+                int input_size = stoi(arg3);
+            }
+        } 
+        else if (argc == 6) {
+            int input_size = stoi(argv[3]);
+            string input_order = argv[4];
+            string output_param = argv[5];
+        }
+    }
+    else if (mode == "-c") {
+		cout << "COMPARISON MODE" <<'\n';
+        string algo1 = argv[2];
+        string algo2 = argv[3];
+        if (argc == 5) {
+            string input_file = argv[4];
+        } 
+        else if (argc == 6) {
+            int input_size = stoi(argv[4]);
+            string input_order = argv[5];
+        }
+    } 
+    else {
+        cout << "không tìm thấy command line hợp lệ";
+    }
+
+    return 0;
 }
