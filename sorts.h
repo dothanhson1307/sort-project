@@ -12,7 +12,7 @@ void mergeSortRec(int a[], int left, int right, unsigned long long& comp);
 void mergeSort(int a[], int n, unsigned long long& comp);
 void quickSortRec(int a[], int left, int right, unsigned long long& comp);
 void quickSort(int a[], int n, unsigned long long& comp);
-void countingSortForRadix(int a[], int n, int exp);
+void countingSortForRadix(int a[], int n, int exp,unsigned long long& comp);
 void radixSort(int a[], int n, unsigned long long& comp);
 void countingSort(int a[], int n, unsigned long long& comp);
 void shellSort(int a[], int n, unsigned long long& comp);

@@ -133,7 +133,7 @@ void writeToFile(string filename, int a[], int n) {
     ofstream f(filename);
     if (f.is_open()) {
         f << n << "\n";
-        for (int i = 0; i < n; ++i) f << a[i] << " ";
+        for (int i = 0; i < n; ++i) f << a[i] << '\n';
         f.close();
     }
 }
@@ -141,18 +141,15 @@ void writeToFile(string filename, int a[], int n) {
 int main(int argc, char* argv[]) {
     if (argc < 5) {
         cout << "không hợp lệ\n";
-        return 1;
     }
-
     string mode = argv[1];
-
     if (mode == "-a") {
         string algorithm = argv[2];
         SortFunction sortFunc = getSortFunction(algorithm);
 
         if (argc == 5) {
             string arg3 = argv[3]; 
-            string output_param = argv[4];
+            string output_p = argv[4];
 
             if (!isNumber(arg3)) {
                 string input_file = arg3;
@@ -161,15 +158,15 @@ int main(int argc, char* argv[]) {
                 readFromFile(input_file, a, n);
 
                 unsigned long long comp = 0;
-                double time = measureSortTime(sortFunc, a, n, comp);
 
                 cout << "ALGORITHM MODE\n";
                 cout << "Algorithm: " << algorithm << "\n";
                 cout << "Input file: " << input_file << "\n";
                 cout << "Input size: " << n << "\n";
                 cout << "-------------------------\n";
-                if (output_param == "-time" || output_param == "-both") cout << "Running time: " << time << " ms\n";
-                if (output_param == "-comp" || output_param == "-both") cout << "Comparisons: " << comp << "\n";
+                double time = measureSortTime(sortFunc, a, n, comp);
+                if (output_p == "-time" || output_p == "-both") cout << "Running time: " << time << " ms\n";
+                if (output_p == "-comp" || output_p == "-both") cout << "Comparisons: " << comp << "\n";
 
                 writeToFile("output.txt", a, n);
                 delete[] a;
@@ -188,12 +185,12 @@ int main(int argc, char* argv[]) {
                     writeToFile("input_" + to_string(i + 1) + ".txt", a, input_size);
 
                     unsigned long long comp = 0;
-                    double time = measureSortTime(sortFunc, a, input_size, comp);
 
                     cout << "Input order: " << orderNames[i] << "\n";
                     cout << "-------------------------\n";
-                    if (output_param == "-time" || output_param == "-both") cout << "Running time: " << time << " ms\n";
-                    if (output_param == "-comp" || output_param == "-both") cout << "Comparisons: " << comp << "\n\n";
+                    double time = measureSortTime(sortFunc, a, input_size, comp);
+                    if (output_p == "-time" || output_p == "-both") cout << "Running time: " << time << " ms\n";
+                    if (output_p == "-comp" || output_p == "-both") cout << "Comparisons: " << comp << "\n\n";
 
                     delete[] a;
                 }
@@ -202,22 +199,22 @@ int main(int argc, char* argv[]) {
         else if (argc == 6) {
             int input_size = stoi(argv[3]);
             string input_order = argv[4];
-            string output_param = argv[5];
+            string output_p = argv[5];
 
             int* a = new int[input_size];
             GenerateData(a, input_size, getOrderType(input_order));
             writeToFile("input.txt", a, input_size);
 
             unsigned long long comp = 0;
-            double time = measureSortTime(sortFunc, a, input_size, comp);
 
             cout << "ALGORITHM MODE\n";
             cout << "Algorithm: " << algorithm << "\n";
             cout << "Input size: " << input_size << "\n";
             cout << "Input order: " << input_order << "\n";
             cout << "-------------------------\n";
-            if (output_param == "-time" || output_param == "-both") cout << "Running time: " << time << " ms\n";
-            if (output_param == "-comp" || output_param == "-both") cout << "Comparisons: " << comp << "\n";
+            double time = measureSortTime(sortFunc, a, input_size, comp);
+            if (output_p == "-time" || output_p == "-both") cout << "Running time: " << time << " ms\n";
+            if (output_p == "-comp" || output_p == "-both") cout << "Comparisons: " << comp << "\n";
 
             writeToFile("output.txt", a, input_size);
             delete[] a;
@@ -239,14 +236,15 @@ int main(int argc, char* argv[]) {
 
             unsigned long long comp1 = 0, comp2 = 0;
 
-            double time1 = measureSortTime(sortFunc1, a1, n, comp1);
-            double time2 = measureSortTime(sortFunc2, a2, n, comp2);
-
             cout << "COMPARE MODE\n";
             cout << "Algorithm: " << algo1 << " | " << algo2 << "\n";
             cout << "Input file: " << input_file << "\n";
             cout << "Input size: " << n << "\n";
             cout << "-------------------------\n";
+
+            double time1 = measureSortTime(sortFunc1, a1, n, comp1);
+            double time2 = measureSortTime(sortFunc2, a2, n, comp2);
+
             cout << "Running time: " << time1 << " ms | " << time2 << " ms\n";
             cout << "Comparisons: " << comp1 << " | " << comp2 << "\n";
 
@@ -266,14 +264,13 @@ int main(int argc, char* argv[]) {
 
             unsigned long long comp1 = 0, comp2 = 0;
 
-            double time1 = measureSortTime(sortFunc1, a1, input_size, comp1);
-            double time2 = measureSortTime(sortFunc2, a2, input_size, comp2);
-
             cout << "COMPARE MODE\n";
             cout << "Algorithm: " << algo1 << " | " << algo2 << "\n";
             cout << "Input size: " << input_size << "\n";
             cout << "Input order: " << input_order << "\n";
             cout << "-------------------------\n";
+            double time1 = measureSortTime(sortFunc1, a1, input_size, comp1);
+            double time2 = measureSortTime(sortFunc2, a2, input_size, comp2);
             cout << "Running time: " << time1 << " ms | " << time2 << " ms\n";
             cout << "Comparisons: " << comp1 << " | " << comp2 << "\n";
 
