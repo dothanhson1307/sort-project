@@ -16,6 +16,7 @@ void countingSortForRadix(int a[], int n, int exp,unsigned long long& comp);
 void radixSort(int a[], int n, unsigned long long& comp);
 void countingSort(int a[], int n, unsigned long long& comp);
 void shellSort(int a[], int n, unsigned long long& comp);
+void flashSort(int a[], int n, unsigned long long& comp);
 
 void no_comp_selectionSort(int a[], int n);
 void no_comp_insertionSort(int a[], int n);
@@ -33,3 +34,4 @@ void no_comp_countingSortForRadix(int a[], int n, int ex);
 void no_comp_radixSort(int a[], int n);
 void no_comp_countingSort(int a[], int n);
 void no_comp_shellSort(int a[], int n);
+void no_comp_flashSort(int a[], int n);

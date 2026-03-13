@@ -257,6 +257,74 @@ void shellSort(int a[], int n, unsigned long long& comp) {
     }
 }
 
+void flashSort(int a[], int n, unsigned long long& comp) {
+    comp = 0;
+    if (++comp,n <= 1) return;
+    int minVal = a[0];
+    int maxVal = a[0];
+    int maxIdx = 0;
+
+    for (int i = 1;++comp, i < n; ++i) {
+        if (++comp,a[i] < minVal) {
+            minVal = a[i];
+        }
+        if (++comp,a[i] > maxVal) {
+            maxVal = a[i];
+            maxIdx = i; 
+        }
+    }
+    if (++comp,minVal == maxVal) return;
+    int m = (int)(0.45 * n);
+    if (++comp,m < 2) m = 2;
+    int* L = new int[m]();
+    double c = (double)(m - 1) / (maxVal - minVal);
+    for (int i = 0;++comp, i < n; ++i) {
+        int k = (int)(c * (a[i] - minVal));
+        L[k]++;
+    }
+    for (int k = 1;++comp, k < m; ++k) {
+        L[k] += L[k - 1];
+    }
+    swap(a[0], a[maxIdx]);
+
+    int count = 1; 
+    int i = 0;  
+    int k = m - 1; 
+
+    while (++comp,count < n) {
+        while (++comp,i >= L[k]) {
+            i++;
+            k = (int)(c * (a[i] - minVal));
+        }
+
+        int flash = a[i];
+        while (++comp,i < L[k]) {
+            k = (int)(c * (flash - minVal));
+            int targetIdx = --L[k];
+    
+            swap(flash, a[targetIdx]);
+            count++;
+        }
+    }
+    delete[] L;
+    for (int idx = 1;++comp, idx < n; ++idx) {
+        int key = a[idx];
+        int j = idx - 1;
+        while (++comp,j >= 0 && ++comp, a[j] > key) {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
+    }
+}
+
+
+
+
+
+
+// no comp from here
+
 void no_comp_selectionSort(int a[], int n) {
     for (int i = 0; i < n - 1; i++) {
 
@@ -497,6 +565,66 @@ void no_comp_shellSort(int a[], int n) {
             }
             a[j] = temp;
         }
+    }
+}
+
+void no_comp_flashSort(int a[], int n) {
+    if (n <= 1) return;
+    int minVal = a[0];
+    int maxVal = a[0];
+    int maxIdx = 0;
+
+    for (int i = 1; i < n; ++i) {
+        if (a[i] < minVal) {
+            minVal = a[i];
+        }
+        if (a[i] > maxVal) {
+            maxVal = a[i];
+            maxIdx = i; 
+        }
+    }
+    if (minVal == maxVal) return;
+    int m = (int)(0.45 * n);
+    if (m < 2) m = 2;
+    int* L = new int[m]();
+    double c = (double)(m - 1) / (maxVal - minVal);
+    for (int i = 0; i < n; ++i) {
+        int k = (int)(c * (a[i] - minVal));
+        L[k]++;
+    }
+    for (int k = 1; k < m; ++k) {
+        L[k] += L[k - 1];
+    }
+    swap(a[0], a[maxIdx]);
+
+    int count = 1; 
+    int i = 0;  
+    int k = m - 1; 
+
+    while (count < n) {
+        while (i >= L[k]) {
+            i++;
+            k = (int)(c * (a[i] - minVal));
+        }
+
+        int flash = a[i];
+        while (i < L[k]) {
+            k = (int)(c * (flash - minVal));
+            int targetIdx = --L[k];
+            
+            swap(flash, a[targetIdx]);
+            count++;
+        }
+    }
+    delete[] L;
+    for (int idx = 1; idx < n; ++idx) {
+        int key = a[idx];
+        int j = idx - 1;
+        while (j >= 0 && a[j] > key) {
+            a[j + 1] = a[j];
+            j--;
+        }
+        a[j + 1] = key;
     }
 }
 

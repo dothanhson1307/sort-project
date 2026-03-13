@@ -25,6 +25,7 @@ SortFunction getSortFunction(string name) {
     if (name == "radix-sort") return radixSort;
     if (name == "counting-sort") return countingSort;
     if (name == "shell-sort") return shellSort;
+    if (name == "flash-sort") return flashSort;
     return nullptr;
 }
 
@@ -40,6 +41,7 @@ NoCompSortFunction getNoCompSortFunction(string name) {
     if (name == "radix-sort") return no_comp_radixSort;
     if (name == "counting-sort") return no_comp_countingSort;
     if (name == "shell-sort") return no_comp_shellSort;
+    if (name == "flash-sort") return no_comp_flashSort;
     return nullptr;
 }
 
