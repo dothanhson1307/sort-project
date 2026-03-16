@@ -1,4 +1,25 @@
 #pragma once
+#include <string>
+using namespace std;
+
+typedef void (*SortFunction)(int[], int, unsigned long long&);
+typedef void (*NoCompSortFunction)(int[], int);
+SortFunction getSortFunction(string name);
+NoCompSortFunction getNoCompSortFunction(string name);
+
+double measureSortTime(NoCompSortFunction sortFunc, int a[], int n);
+
+template <class T>
+void Swap(T &a, T &b);
+void GenerateRandomData(int a[], int n);
+void GenerateSortedData(int a[], int n);
+void GenerateReverseData(int a[], int n);
+void GenerateNearlySortedData(int a[], int n);
+void GenerateData(int a[], int n, int dataType);
+bool isNumber(const string& str);
+int getOrderType(string order);
+void readFromFile(string filename, int*& a, int& n);
+void writeToFile(string filename, int a[], int n);
 
 void selectionSort(int a[], int n, unsigned long long& comp);
 void insertionSort(int a[], int n, unsigned long long& comp);
